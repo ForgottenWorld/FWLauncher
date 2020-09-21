@@ -213,7 +213,8 @@ button {
   display: flex;
 }
 
-.login-form input,
+.login-form input[type="text"],
+.login-form input[type="password"],
 .login-form button {
   appearance: none;
   font-family: 'Titillium Web';
@@ -225,8 +226,9 @@ button {
   padding: 6px 12px;
 }
 
-.login-form input {
-  flex: 1 0 220px;
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  flex: 1 0 200px;
   margin-right: 8px;
   border: 2px solid white;
   transition: border-color linear 100ms;
@@ -260,6 +262,46 @@ button {
 
 .login-form.signed-in {
   justify-content: space-between;
+}
+
+.save-creds {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.3rem;
+  padding: 0 12px 0 0;
+  color: white;
+  font-weight: 500;
+}
+
+.save-creds input {
+  margin-right: 8px;
+  appearance: none;
+  height: 32px;
+  width: 32px;
+  outline: none;
+  padding: 5px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+}
+
+.save-creds input::after {
+  content: "";
+  display: flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background-color: var(--clr-bright-opaque);
+  transition: opacity linear 200ms;
+}
+
+.save-creds input:not(:checked)::after {
+  opacity: 0;
+}
+
+.save-creds input:checked::after {
+  opacity: 1;
 }
 
 .app-top-right-panel {

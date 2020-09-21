@@ -3,12 +3,16 @@ const Store = require('electron-store');
 
 const store = new Store();
 
-const loginWithCredentials = (username, password) => 
+const loginWithCredentials = (username, password, saveCreds) => 
     new Promise((res, fail) => 
         Authenticator
             .getAuth(username, password)
             .then(v => { 
-                    store.set('authCredentials', v);
+                    if (saveCreds)
+                        store.set('authCredentials', v);
+                    else
+                        store.delete('authCredentials');
+
                     res(v)
                 },
                 r => fail(r)
@@ -18,7 +22,8 @@ const refreshToken = () =>
     new Promise((res, fail) => {
         const creds = getStoredCreds();
         if (creds)
-            Authenticator.validate(creds.access_token, creds.client_token).then(
+            Authenticator.validate(creds.access_token, creds.client_token)
+            .then(
                 () => res(creds),
                 () => Authenticator
                     .refreshAuth(
@@ -28,8 +33,10 @@ const refreshToken = () =>
                     .then(v => {
                             store.set('authCredentials', v);
                             res(v);
-                        }, r => fail(r))
-            )
+                        }, r => {
+                            store.delete('authCredentials');
+                            fail(r);
+                        }))
         else res(null)
     })
 

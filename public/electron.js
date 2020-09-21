@@ -5,7 +5,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const isDev = require('electron-is-dev');   
 const path = require('path');
 const { getSystemMemory } = require('./utils/osUtils');
-const { setMemoryRange, getMemoryRange } = require('./config/config');
+const { setMemoryRange, getMemoryRange, storeSet, storeGet } = require('./config/config');
 const { fetchVersions, fetchVanillaList } = require('./launcher/fetchVersions');
 const { fetchNews } = require("./news/fetchNews");
 
@@ -27,7 +27,7 @@ const createWindow = () => {
         icon: path.join(__dirname, "icon.png")
     });
 
-    ipcMain.handle('fwlLogin', (e, username, password) => loginWithCredentials(username, password));
+    ipcMain.handle('fwlLogin', (e, username, password, saveCreds) => loginWithCredentials(username, password, saveCreds));
     ipcMain.handle('fwlRefreshToken', e => refreshToken());
     ipcMain.handle('fwlLogout', e => logout());
     ipcMain.handle('fwlGetSystemMemory', e => getSystemMemory());
@@ -37,7 +37,9 @@ const createWindow = () => {
     ipcMain.handle('fwlFetchVersions', e => fetchVersions());
     ipcMain.handle('fwlFetchVanillaList', e => fetchVanillaList());
     ipcMain.handle('fwlFetchNews', e => fetchNews());
+    ipcMain.handle('fwlStoreGet', (e, key, def) => storeGet(key, def));
 
+    ipcMain.on('fwlStoreSet', (e, key,value) => storeSet(key, value));
     ipcMain.on('fwlSetMemoryRange', (e, min, max) => setMemoryRange(min, max));
     ipcMain.on('fwlMinimize', e => mainWindow.minimize());
     ipcMain.on('fwlClose', e => mainWindow.close());

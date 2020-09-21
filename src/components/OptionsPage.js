@@ -11,7 +11,8 @@ export default function OptionsPage(props) {
 
     const showError = props.showError;
     useEffect(() => {
-        const effect = async () => {
+        
+        (async () => {
             try {
                 const max = await ipcRenderer.invoke("fwlGetSystemMemory");
                 setMaxSysRam(Math.floor(max / 1000) * 1000);
@@ -21,9 +22,8 @@ export default function OptionsPage(props) {
             } catch (err) {
                 showError(err.message);
             }
-        }
+        })();
 
-        effect();
     }, [showError, setMinRam, setMaxRam, setMaxSysRam]);
 
     const setMemory = (values) => { 
