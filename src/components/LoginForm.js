@@ -36,7 +36,7 @@ export default function LoginForm(props) {
                 () => console.log("Auth token couldn't be refreshed.")
             );
     
-            await ipcRenderer.invoke("fwlStoreGet", "saveCreds").then(
+            await ipcRenderer.invoke("fwlStoreGet", "saveCreds", false).then(
                 r => { setSaveCreds(r) },
                 r => { /* ignored */ }
             )

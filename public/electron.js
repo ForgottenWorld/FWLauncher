@@ -5,7 +5,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const isDev = require('electron-is-dev');   
 const path = require('path');
 const { getSystemMemory } = require('./utils/osUtils');
-const { setMemoryRange, getMemoryRange, storeSet, storeGet } = require('./config/config');
+const { setMemoryRange, getMemoryRange, storeSet, storeGet, customJrePrompt } = require('./config/config');
 const { fetchVersions, fetchVanillaList } = require('./launcher/fetchVersions');
 const { fetchNews } = require("./news/fetchNews");
 
@@ -38,6 +38,7 @@ const createWindow = () => {
     ipcMain.handle('fwlFetchVanillaList', e => fetchVanillaList());
     ipcMain.handle('fwlFetchNews', e => fetchNews());
     ipcMain.handle('fwlStoreGet', (e, key, def) => storeGet(key, def));
+    ipcMain.handle('fwlJreCustomPath', e => customJrePrompt());
 
     ipcMain.on('fwlStoreSet', (e, key,value) => storeSet(key, value));
     ipcMain.on('fwlSetMemoryRange', (e, min, max) => setMemoryRange(min, max));

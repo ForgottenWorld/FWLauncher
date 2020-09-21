@@ -26,7 +26,8 @@ const launchVanilla = (auth, version) => {
         memory: {
             max: store.get("maxMemory", 4000),
             min: store.get("minMemory", 2000)
-        }
+        },
+        javaPath: store.get("jre", "java")
     }
     
     const handleDownloadStatus = e => {

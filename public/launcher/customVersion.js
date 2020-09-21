@@ -3,6 +3,7 @@ const { getPathForOS } = require("../utils/osUtils")
 const fs = require('fs');
 const { download } = require('electron-dl');
 const { BrowserWindow } = require('electron');
+const Store = require('electron-store');
 const { getMemoryRange } = require('../config/config');
 const { fetchVersion } = require('./fetchVersions');
 //const md5File = require('md5-file');
@@ -15,6 +16,7 @@ const launchCustomVersion = async (auth, id) => {
     const libsPath = `${path}/libs`;
     const focusedWindow = BrowserWindow.getFocusedWindow();
     const memRange = getMemoryRange();
+    const store = new Store();
 
     if (!fs.existsSync(path)) fs.mkdirSync(path, {recursive: true}, _ => {});
     if (!fs.existsSync(libsPath)) fs.mkdirSync(libsPath, {recursive: true}, _ => {});
@@ -74,7 +76,8 @@ const launchCustomVersion = async (auth, id) => {
         memory: {
             max: memRange[1],
             min: memRange[0]
-        }
+        },
+        javaPath: store.get("jre", "java")
     }
     
     launcher.on('debug', (e) => console.log(e));

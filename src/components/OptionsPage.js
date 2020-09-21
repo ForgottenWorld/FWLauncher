@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const { ipcRenderer } = require("electron");
 
@@ -8,6 +10,7 @@ export default function OptionsPage(props) {
     const [minRam, setMinRam] = useState(2000);
     const [maxRam, setMaxRam] = useState(4000);
     const [maxSysRam, setMaxSysRam] = useState(4000);
+    const [customJre, setCustomJre] = useState("");
 
     const showError = props.showError;
     useEffect(() => {
@@ -19,12 +22,17 @@ export default function OptionsPage(props) {
                 const r = await ipcRenderer.invoke("fwlGetMemoryRange");
                 setMinRam(r[0]);
                 setMaxRam(r[1]);
+
+                await ipcRenderer.invoke("fwlStoreGet", "jre", "").then(
+                    r => setCustomJre(r),
+                    r => { /* ignored */ }
+                )
             } catch (err) {
                 showError(err.message);
             }
         })();
 
-    }, [showError, setMinRam, setMaxRam, setMaxSysRam]);
+    }, [showError, setMinRam, setMaxRam, setMaxSysRam, setCustomJre]);
 
     const setMemory = (values) => { 
         setMinRam(values[0]);
@@ -32,15 +40,36 @@ export default function OptionsPage(props) {
         ipcRenderer.send("fwlSetMemoryRange", values[0], values[1])
     }
 
+    const clearJre = () => {
+        setCustomJre("");
+        ipcRenderer.send("fwlStoreSet", "jre", false);
+    }
+
+    const jreInputClick = () => {
+        ipcRenderer.invoke("fwlJreCustomPath", "jre").then(
+            r => { if (r) setCustomJre(r) },
+            _ => { /* ignored */ }
+        )
+    }
+
     return (
         <div className="options-page">
             <div className="options-body">
                 <div className="options-title">OPZIONI</div>
                 <div className="options-rows">
+                    <div className="options-item jre-item">
+                        <div className="jre-info">JRE personalizzato</div>
+                        <div className="jre">
+                            <div className="jre-label" onClick={() => jreInputClick()}>
+                                {customJre}
+                            </div>
+                            <FontAwesomeIcon onClick={() => clearJre()} icon={faTrash} className="clear-jre" />
+                        </div>
+                    </div>
                     <div className="options-item ram">
                         <div className="slider-container">
                             <Range 
-                                min={2000}  
+                                min={1000}  
                                 max={maxSysRam}
                                 step={1000}
                                 allowCross={false}

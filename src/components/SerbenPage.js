@@ -5,6 +5,7 @@ export default function SerbenPage(props) {
 
     const isVanilla = props.serben.name === "Vanilla";
     const authData = props.authData;
+    const setError = props.setError;
 
     const [currentVanillaVersion, setCurrentVanillaVersion] = useState("1.16.3");
     const [vanillaVersions, setVanillaVersions] = useState([]);
@@ -15,7 +16,7 @@ export default function SerbenPage(props) {
         ipcRenderer.invoke("fwlLaunchCv", authData, props.serben.id).then(
             () => setLaunching(false),
             r => {
-                //setError(`Impossibile avviare Minecraft: ${r}`);
+                setError(`Impossibile avviare Minecraft: ${r}`);
                 setLaunching(false)
             })
     }
@@ -25,7 +26,7 @@ export default function SerbenPage(props) {
         ipcRenderer.invoke("fwlLaunch", authData, currentVanillaVersion).then(
             () => setLaunching(false),
             r => {
-                //setError(`Impossibile avviare Minecraft: ${r}`);
+                setError(`Impossibile avviare Minecraft: ${r}`);
                 setLaunching(false)
             })
     }
@@ -54,9 +55,7 @@ export default function SerbenPage(props) {
             { isVanilla
             ? <div className="vanilla-ver-select-container">
                 <select onChange={e => setCurrentVanillaVersion(e.target.value)}>
-                    {
-                        vanillaVersions.map((v, i) => <option key={`v${i}`}>{v.id}</option>)
-                    }
+                    { vanillaVersions.map((v, i) => <option key={`v${i}`}>{v.id}</option>) }
                 </select>
               </div>
             : null
