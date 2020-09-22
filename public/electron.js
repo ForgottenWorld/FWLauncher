@@ -8,6 +8,7 @@ const { getSystemMemory } = require('./utils/osUtils');
 const { setMemoryRange, getMemoryRange, storeSet, storeGet, customJrePrompt } = require('./config/config');
 const { fetchVersions, fetchVanillaList } = require('./launcher/fetchVersions');
 const { fetchNews } = require("./news/fetchNews");
+const { autoUpdater } = require("electron-updater");
 
 let mainWindow;
 
@@ -57,6 +58,7 @@ const createWindow = () => {
         mainWindow = null;
     });
 
+    autoUpdater.checkForUpdatesAndNotify()
 }
 
 app.on('ready', createWindow);
