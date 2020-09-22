@@ -73,10 +73,10 @@
     ],
     "directories": {
       "buildResources": "assets"
-    },
-    "repository": {
-      "type" : "git",
-      "url" : "https://github.com/ForgottenWorld/FWLauncher.git"
     }
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ForgottenWorld/FWLauncher.git"
   }
 }
