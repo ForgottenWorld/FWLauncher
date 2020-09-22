@@ -51,7 +51,7 @@ const createWindow = () => {
     const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`;
 
     mainWindow.loadURL(startURL);
- 
+
     mainWindow.once('ready-to-show', () => mainWindow.show());
     mainWindow.on('closed', () => {
         mainWindow = null;
