@@ -1,11 +1,27 @@
 import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { ipcRenderer } from 'electron';
-import React, { useState } from 'react';
+import { ipcRenderer } from 'electron';
+import React, { useEffect, useState } from 'react';
 
 export default function Colorizer(props) {
 
+    const setColor = props.setColor;
+
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+
+        ipcRenderer.invoke("fwlStoreGet", "color", 1).then(
+            r => { setColor(r) },
+            r => { /* ignored */ }
+        )
+
+    }, [setColor])
+
+    const changeColor = n => {
+        ipcRenderer.send("fwlStoreSet", "color", n);
+        setColor(n);
+    }
 
     return (
         <div className="colorize" onClick={() => setOpen(!open)} >
@@ -19,7 +35,7 @@ export default function Colorizer(props) {
                                 <div 
                                     key={`cp-${n}`}
                                     className={`color-${n}`}
-                                    onClick={() => props.setColor(n)}
+                                    onClick={() => changeColor(n)}
                                     ></div>)
                         }
                     </div>

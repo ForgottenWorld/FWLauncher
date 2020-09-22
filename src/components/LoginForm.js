@@ -26,7 +26,7 @@ export default function LoginForm(props) {
                 showError("Login non riuscito!");
             });
 
-        },[username, password, authDataSetter, showError, saveCreds]);
+    },[username, password, authDataSetter, showError, saveCreds]);
 
     useEffect(() => {
 

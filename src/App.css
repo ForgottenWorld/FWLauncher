@@ -16,16 +16,6 @@
   font-weight: 600;
 }
 
-/* :root {
-  --clr: rgba(245, 124, 0, 0.75);
-  --clr-dark: rgba(187, 77, 0, 0.75);
-  --clr-bright: rgba(255, 173, 66, 0.75);
-
-  --clr-opaque: rgb(245, 124, 0);
-  --clr-dark-opaque: rgb(187, 77, 0);
-  --clr-bright-opaque: rgb(255, 173, 66);
-} */
-
 @keyframes fadeIn {
   0% {
     opacity: 0;

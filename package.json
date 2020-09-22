@@ -33,6 +33,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
+    "release": "npm run build && electron-builder build --linux -c.extraMetadata.main=build/electron.js --publish onTagOrDraft",
     "ebuild": "npm run build && electron-builder build --linux -c.extraMetadata.main=build/electron.js",
     "dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
@@ -57,11 +58,14 @@
   },
   "build": {
     "appId": "it.forgottenworld.launcher",
-    "mac": {
-      "category": "Games"
-    },
+    "productName": "FWLauncher",
     "linux": {
-      "category": "Games"
+      "target": "AppImage",
+      "icon": "icon512x512.png",
+      "synopsis": "Il launcher di ForgottenWorld",
+      "description": "Launcher per il network di Forgotten World.",
+      "category": "Games",
+      "publish": ["github"]
     },
     "files": [
       "build/**/*",
@@ -69,6 +73,10 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "repository": {
+      "type" : "git",
+      "url" : "https://github.com/ForgottenWorld/FWLauncher.git"
     }
   }
 }
