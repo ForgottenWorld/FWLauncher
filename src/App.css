@@ -40,6 +40,79 @@ button {
   user-select: none;
 }
 
+.app.color-1 {
+  --bg: url(bg1.png);
+  
+  --clr: rgba(245, 124, 0, 0.75);
+  --clr-dark: rgba(187, 77, 0, 0.75);
+  --clr-bright: rgba(255, 173, 66, 0.75);
+
+  --clr-opaque: rgb(245, 124, 0);
+  --clr-dark-opaque: rgb(187, 77, 0);
+  --clr-bright-opaque: rgb(255, 173, 66);
+}
+
+.app.color-2 {
+  --bg: url(bg2.png);
+
+  --clr: rgba(194, 24, 91, 0.75);
+  --clr-dark:  rgba(140, 0, 50, 0.75);
+  --clr-bright: rgba(250, 87, 136, 0.75);
+
+  --clr-opaque: rgb(194, 24, 91);
+  --clr-dark-opaque: rgb(140, 0, 50);
+  --clr-bright-opaque: rgb(250, 87, 136);
+}
+
+.app.color-3 {
+  --bg: url(bg3.png);
+
+  --clr: rgba(46, 125, 50, 0.75);
+  --clr-dark: rgba(0, 80, 5, 0.75);
+  --clr-bright: rgba(96, 173, 94, 0.75);
+
+  --clr-opaque: rgb(46, 125, 50);
+  --clr-dark-opaque: rgb(0, 80, 5);
+  --clr-bright-opaque: rgb(96, 173, 94);
+}
+
+.app.color-4 {
+  --bg: url(bg4.png);
+
+  --clr: rgba(25, 118, 210, 0.75);
+  --clr-dark: rgba(0, 75, 160, 0.75);
+  --clr-bright: rgba(99, 164, 255, 0.75);
+
+  --clr-opaque: rgb(25, 118, 210);
+  --clr-dark-opaque: rgb(0, 75, 160);
+  --clr-bright-opaque: rgb(99, 164, 255);
+}
+
+.app.color-5 {
+  --bg: url(bg5.png);
+
+  --clr: rgba(198, 40, 40, 0.75);
+  --clr-dark: rgba(142, 0, 0, 0.75);
+  --clr-bright: rgba(255, 95, 82, 0.75);
+
+  --clr-opaque: rgb(198, 40, 40);
+  --clr-dark-opaque: rgb(142, 0, 0);
+  --clr-bright-opaque: rgb(255, 95, 82);
+}
+
+.app.color-6 {
+  --bg: url(bg6.png);
+
+  --clr: rgba(0, 122, 108, 0.75);
+  --clr-dark: rgba(0, 76, 64, 0.75);
+  --clr-bright: rgba(72, 169, 153, 0.75);
+
+  --clr-opaque: rgb(0, 122, 108);
+  --clr-dark-opaque: rgb(0, 76, 64);
+  --clr-bright-opaque: rgb(72, 169, 153);
+}
+
+
 .app {
   display: flex;
   flex-direction: column;
@@ -51,85 +124,10 @@ button {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
   box-sizing: border-box;
   position: relative;
+  background-size: cover;
+  background-position: center;
+  background-image: var(--bg);
   transition: background-image linear 100ms;
-}
-
-.app.bg0 {
-  background-image: url(bg0.png);
-  background-size: cover;
-  background-position: center;
-}
-
-.app.bg1 {
-  background-image: url(bg1.png);
-  background-size: cover;
-  background-position: center;
-}
-
-.app.bg2 {
-  background-image: url(bg2.png);
-  background-size: cover;
-  background-position: center;
-}
-
-.app.color-1 * {
-  --clr: rgba(245, 124, 0, 0.75);
-  --clr-dark: rgba(187, 77, 0, 0.75);
-  --clr-bright: rgba(255, 173, 66, 0.75);
-
-  --clr-opaque: rgb(245, 124, 0);
-  --clr-dark-opaque: rgb(187, 77, 0);
-  --clr-bright-opaque: rgb(255, 173, 66);
-}
-
-.app.color-2 * {
-  --clr: rgba(194, 24, 91, 0.75);
-  --clr-dark:  rgba(140, 0, 50, 0.75);
-  --clr-bright: rgba(250, 87, 136, 0.75);
-
-  --clr-opaque: rgb(194, 24, 91);
-  --clr-dark-opaque: rgb(140, 0, 50);
-  --clr-bright-opaque: rgb(250, 87, 136);
-}
-
-.app.color-3 * {
-  --clr: rgba(46, 125, 50, 0.75);
-  --clr-dark: rgba(0, 80, 5, 0.75);
-  --clr-bright: rgba(96, 173, 94, 0.75);
-
-  --clr-opaque: rgb(46, 125, 50);
-  --clr-dark-opaque: rgb(0, 80, 5);
-  --clr-bright-opaque: rgb(96, 173, 94);
-}
-
-.app.color-4 * {
-  --clr: rgba(25, 118, 210, 0.75);
-  --clr-dark: rgba(0, 75, 160, 0.75);
-  --clr-bright: rgba(99, 164, 255, 0.75);
-
-  --clr-opaque: rgb(25, 118, 210);
-  --clr-dark-opaque: rgb(0, 75, 160);
-  --clr-bright-opaque: rgb(99, 164, 255);
-}
-
-.app.color-5 * {
-  --clr: rgba(198, 40, 40, 0.75);
-  --clr-dark: rgba(142, 0, 0, 0.75);
-  --clr-bright: rgba(255, 95, 82, 0.75);
-
-  --clr-opaque: rgb(198, 40, 40);
-  --clr-dark-opaque: rgb(142, 0, 0);
-  --clr-bright-opaque: rgb(255, 95, 82);
-}
-
-.app.color-6 * {
-  --clr: rgba(0, 122, 108, 0.75);
-  --clr-dark: rgba(0, 76, 64, 0.75);
-  --clr-bright: rgba(72, 169, 153, 0.75);
-
-  --clr-opaque: rgb(0, 122, 108);
-  --clr-dark-opaque: rgb(0, 76, 64);
-  --clr-bright-opaque: rgb(72, 169, 153);
 }
 
 .app-header {

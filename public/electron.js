@@ -58,7 +58,7 @@ const createWindow = () => {
         mainWindow = null;
     });
 
-    autoUpdater.checkForUpdatesAndNotify()
+    if (!isDev) autoUpdater.checkForUpdatesAndNotify()
 }
 
 app.on('ready', createWindow);

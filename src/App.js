@@ -59,7 +59,7 @@ function App() {
 
   return (
     isLoaded
-    ? <div className={`app bg${selectedSerben} color-${color}`}>
+    ? <div className={`app color-${color}`}>
         {
           error 
           ? <div className="error-dimmer">
