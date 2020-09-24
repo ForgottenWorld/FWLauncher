@@ -234,7 +234,7 @@ button {
 .login-form input[type="password"] {
   flex: 1 0 200px;
   margin-right: 8px;
-  border: 2px solid white;
+  border: 3px solid white;
   transition: border-color linear 100ms;
 }
 
@@ -886,7 +886,7 @@ button {
   margin-top: 24px;
   font-weight: 600;
   padding: 0 60px;
-  background-color: rgba(175, 26, 0, 0.4);
+  background-color: rgba(142, 0, 0, 0.644);
   color: rgba(255,255,255,0.75);
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   box-shadow: inset 0 0px 4px 0 rgba(0,0,0,0);
@@ -1120,4 +1120,69 @@ select {
   padding: 8px;
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.update-dialog {
+  display: flex;
+  flex-direction: column;
+  max-width: 40vw;
+  background-color: white;
+  text-align: center;
+  align-items: center;
+  padding: 24px 32px;
+  font-weight: 400;
+  color: gray;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
+}
+
+.update-btn {
+  appearance: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  font-family: Titillium Web;;
+  font-size: 1.5rem;
+  color: white;
+  width: 100%;
+  flex: 0 0 2.6rem;
+  justify-content: center;
+  margin-top: 8px;
+  font-weight: 600;
+  padding: 0 60px;
+  color: rgba(255,255,255,0.75);
+  background-color: rgba(8, 97, 0, 0.644);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0px 4px 0 rgba(0,0,0,0);
+  transition: background-color linear 200ms, color linear 100ms, box-shadow linear 100ms;
+}
+
+.update-btn:disabled {
+  cursor: default;
+  color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(160, 160, 160, 0.4);
+}
+
+.update-btn:not(:disabled):hover {
+  color: white;
+  background-color: rgb(11, 136, 0);
+}
+
+.update-btn:not(.disabled):active {
+  box-shadow: inset 0 0px 4px 4px rgba(0,0,0,0.1);
+}
+
+.update-version {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.update-dialog .close-error {
+  justify-content: center;
+  margin-top: 8px;
+  width: 100%;
 }

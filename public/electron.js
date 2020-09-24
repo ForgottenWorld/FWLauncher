@@ -28,24 +28,30 @@ const createWindow = () => {
         icon: path.join(__dirname, "icon.png")
     });
 
-    ipcMain.handle('fwlLogin', (e, username, password, saveCreds) => loginWithCredentials(username, password, saveCreds));
-    ipcMain.handle('fwlRefreshToken', e => refreshToken());
-    ipcMain.handle('fwlLogout', e => logout());
-    ipcMain.handle('fwlGetSystemMemory', e => getSystemMemory());
-    ipcMain.handle('fwlGetMemoryRange', e => getMemoryRange());
-    ipcMain.handle('fwlLaunchCv', (e, auth, id) => launchCustomVersion(auth, id));
-    ipcMain.handle('fwlLaunch', (e, auth, version) => launchVanilla(auth, version));
-    ipcMain.handle('fwlFetchVersions', e => fetchVersions());
-    ipcMain.handle('fwlFetchVanillaList', e => fetchVanillaList());
-    ipcMain.handle('fwlFetchNews', e => fetchNews());
-    ipcMain.handle('fwlStoreGet', (e, key, def) => storeGet(key, def));
-    ipcMain.handle('fwlJreCustomPath', e => customJrePrompt());
+    autoUpdater.autoDownload = false;
+    autoUpdater.autoInstallOnAppQuit = false;
+    autoUpdater.on('update-available', info => mainWindow.webContents.send("fwlUpdateAvailable", info.version));
+    autoUpdater.on('update-downloaded', () => autoUpdater.quitAndInstall(false, true));
 
-    ipcMain.on('fwlStoreSet', (e, key,value) => storeSet(key, value));
-    ipcMain.on('fwlSetMemoryRange', (e, min, max) => setMemoryRange(min, max));
-    ipcMain.on('fwlMinimize', e => mainWindow.minimize());
-    ipcMain.on('fwlClose', e => mainWindow.close());
-    ipcMain.on('fwlOpenLink', (e, url) => shell.openExternal(url));
+    ipcMain.handle('fwlLogin', (_, username, password, saveCreds) => loginWithCredentials(username, password, saveCreds));
+    ipcMain.handle('fwlRefreshToken', _ => refreshToken());
+    ipcMain.handle('fwlLogout', _ => logout());
+    ipcMain.handle('fwlGetSystemMemory', _ => getSystemMemory());
+    ipcMain.handle('fwlGetMemoryRange', _ => getMemoryRange());
+    ipcMain.handle('fwlLaunchCv', (_, auth, id) => launchCustomVersion(auth, id));
+    ipcMain.handle('fwlLaunch', (_, auth, version) => launchVanilla(auth, version));
+    ipcMain.handle('fwlFetchVersions', _ => fetchVersions());
+    ipcMain.handle('fwlFetchVanillaList', _ => fetchVanillaList());
+    ipcMain.handle('fwlFetchNews', _ => fetchNews());
+    ipcMain.handle('fwlStoreGet', (_, key, def) => storeGet(key, def));
+    ipcMain.handle('fwlJreCustomPath', _ => customJrePrompt());
+    
+    ipcMain.on('fwlDownloadAndInstallUpdate', _ => autoUpdater.downloadUpdate());
+    ipcMain.on('fwlStoreSet', (_, key,value) => storeSet(key, value));
+    ipcMain.on('fwlSetMemoryRange', (_, min, max) => setMemoryRange(min, max));
+    ipcMain.on('fwlMinimize', _ => mainWindow.minimize());
+    ipcMain.on('fwlClose', _ => mainWindow.close());
+    ipcMain.on('fwlOpenLink', (_, url) => shell.openExternal(url));
 
     if (!isDev) mainWindow.setMenu(null);
 
@@ -53,12 +59,16 @@ const createWindow = () => {
 
     mainWindow.loadURL(startURL);
 
-    mainWindow.once('ready-to-show', () => mainWindow.show());
+    mainWindow.once('ready-to-show', () => {
+        autoUpdater.checkForUpdatesAndNotify();
+            
+        mainWindow.show();
+    });
+
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
-
-    if (!isDev) autoUpdater.checkForUpdatesAndNotify()
+    
 }
 
 app.on('ready', createWindow);

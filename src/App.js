@@ -10,6 +10,7 @@ import OptionsPage from './components/OptionsPage';
 import LoadingBar from './components/LoadingBar';
 import vanillaIcon from './vanilla.png';
 import NewsPage from './components/NewsPage';
+import UpdateDialog from './components/UpdateDialog';
 
 const { ipcRenderer } = require('electron');
 
@@ -60,6 +61,7 @@ function App() {
   return (
     isLoaded
     ? <div className={`app color-${color}`}>
+        <UpdateDialog></UpdateDialog>
         {
           error 
           ? <div className="error-dimmer">

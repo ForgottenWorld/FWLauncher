@@ -9,6 +9,7 @@ const { fetchVersion } = require('./fetchVersions');
 //const md5File = require('md5-file');
 
 const launchCustomVersion = async (auth, id) => {
+    
     const versionData = await fetchVersion(id);
     const launcher = new Client();
     const path = getPathForOS();
