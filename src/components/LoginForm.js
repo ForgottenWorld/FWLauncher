@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import missingFace from '../missingface.png';
 
 const { ipcRenderer } = require("electron");
 
@@ -61,7 +62,7 @@ export default function LoginForm(props) {
         props.authData
         ? <div className="login-form signed-in">
             <div className="login-form-face-name-container">
-                <img className="logged-player-face" alt="Currently logged in player face" src={`https://minotar.net/avatar/${props.authData.uuid}/32.png`}></img>
+                <img className="logged-player-face" onError={e => e.target.src = missingFace} alt=" " src={`https://minotar.net/avatar/${props.authData.uuid}/32.png`}></img>
                 <span className="logged-player-name">{props.authData.name}</span>
             </div>
             <button onClick={logout}>Logout</button>

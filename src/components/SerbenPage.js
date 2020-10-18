@@ -8,9 +8,11 @@ export default function SerbenPage(props) {
     const setError = props.setError;
 
     const [currentVanillaVersion, setCurrentVanillaVersion] = useState("1.16.3");
-    const [vanillaVersions, setVanillaVersions] = useState([]);
     const [launching, setLaunching] = useState(false);
-    
+
+    const [vanillaVersions, setVanillaVersions] = useState([]);
+    const [filteredVanillaVersions, setFilteredVanillaVersions] = useState([]);
+
     const launchCustom = () => {
         setLaunching(true);
         ipcRenderer.invoke("fwlLaunchCv", authData, props.serben.id).then(
@@ -38,13 +40,16 @@ export default function SerbenPage(props) {
             try {
                 const json = await ipcRenderer.invoke("fwlFetchVanillaList");
                 setVanillaVersions(json.versions);
+                setFilteredVanillaVersions(json.versions.filter(v => v.type === "release"))
                 setCurrentVanillaVersion(json.versions[0].id);
             } catch (err) {
                 //showError(err.message)
                 console.log(err.message);
             }
         })();
-    }, [setVanillaVersions, setCurrentVanillaVersion])
+    }, [setVanillaVersions, setCurrentVanillaVersion, setFilteredVanillaVersions])
+
+    const filterReleaseSnapshot = checked => setFilteredVanillaVersions(vanillaVersions.filter(v => v.type === (checked ? "snapshot" : "release")));
 
     return (
         <div className={`serben-page ${props.fading ? "fading" : ""}`}>
@@ -54,8 +59,13 @@ export default function SerbenPage(props) {
             <div className="serben-title">{props.serben.name}</div>
             { isVanilla
             ? <div className="vanilla-ver-select-container">
+                <div className="vanilla-type-switch-cont">
+                    <div className="lbl-release">RELEASE</div>
+                    <input type="checkbox" className="vanilla-type-switch" onChange={e => filterReleaseSnapshot(e.target.checked)} />
+                    <div className="lbl-snapshot">SNAPSHOT</div>
+                </div>
                 <select onChange={e => setCurrentVanillaVersion(e.target.value)}>
-                    { vanillaVersions.map((v, i) => <option key={`v${i}`}>{v.id}</option>) }
+                    { filteredVanillaVersions.map((v, i) => <option key={`v${i}`}>{v.id}</option>) }
                 </select>
               </div>
             : null

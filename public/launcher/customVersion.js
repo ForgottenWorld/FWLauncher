@@ -6,6 +6,7 @@ const { BrowserWindow } = require('electron');
 const Store = require('electron-store');
 const { getMemoryRange } = require('../config/config');
 const { fetchVersion } = require('./fetchVersions');
+const md5 = require('md5-file');
 //const md5File = require('md5-file');
 
 const launchCustomVersion = async (auth, id) => {
@@ -52,7 +53,7 @@ const launchCustomVersion = async (auth, id) => {
 
         updateDP(fn, progress);
 
-        if (!fs.existsSync(t)) {
+        if (!fs.existsSync(t) || await md5(t) !== f.checksum) {
             await download(
                 focusedWindow,
                 f.source,

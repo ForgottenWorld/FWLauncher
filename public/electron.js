@@ -38,8 +38,8 @@ const createWindow = () => {
     ipcMain.handle('fwlLogout', _ => logout());
     ipcMain.handle('fwlGetSystemMemory', _ => getSystemMemory());
     ipcMain.handle('fwlGetMemoryRange', _ => getMemoryRange());
-    ipcMain.handle('fwlLaunchCv', (_, auth, id) => launchCustomVersion(auth, id));
-    ipcMain.handle('fwlLaunch', (_, auth, version) => launchVanilla(auth, version));
+    ipcMain.handle('fwlLaunchCv', (_, auth, id) => launchCustomVersion(auth, id).then(() => mainWindow.close()));
+    ipcMain.handle('fwlLaunch', (_, auth, version) => launchVanilla(auth, version).then(() => mainWindow.close()));
     ipcMain.handle('fwlFetchVersions', _ => fetchVersions());
     ipcMain.handle('fwlFetchVanillaList', _ => fetchVanillaList());
     ipcMain.handle('fwlFetchNews', _ => fetchNews());

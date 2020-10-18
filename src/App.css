@@ -206,6 +206,10 @@ button {
 
 .logged-player-face {
   border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.4);
+  background-color: #343a40;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
@@ -215,6 +219,7 @@ button {
 
 .login-form-face-name-container {
   display: flex;
+  align-items: center;
 }
 
 .login-form input[type="text"],
@@ -283,7 +288,7 @@ button {
   height: 32px;
   width: 32px;
   outline: none;
-  padding: 5px;
+  padding: 6px;
   background-color: white;
   border-radius: 4px;
   box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.4);
@@ -293,10 +298,10 @@ button {
 .save-creds input::after {
   content: "";
   display: flex;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
-  background-color: var(--clr-bright-opaque);
+  background: linear-gradient(45deg, var(--clr-opaque), var(--clr-bright-opaque));
   transition: opacity linear 200ms;
 }
 
@@ -503,13 +508,13 @@ button {
 
 .social-link {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 22px;
   box-shadow: inset 0 0 4px 4px rgba(255,255,255,0), 0 2px 4px 0 rgba(0,0,0,0.2);
   margin-right: 8px;
-  padding: 2px;
   display: flex;
-  height: 32px;
-  flex: 0 0 32px;
+  height: 36px;
+  width: 36px;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
@@ -998,11 +1003,14 @@ select {
   padding: 8px 16px;
   font-size: 1.5rem;
   margin-top: 24px;
+  width: 200px;
   font-family: "Titillium Web";
   border-radius: 4px;
   border: none;
   outline: none;
+  color: #222222;
   background-color: rgba(255,255,255,0.8);
+  box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .colorize {
@@ -1185,4 +1193,61 @@ select {
   justify-content: center;
   margin-top: 8px;
   width: 100%;
+}
+
+.vanilla-type-switch-cont {
+  font-size: 1.2rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.vanilla-type-switch {
+  appearance: none;
+  width: 60px;
+  border-radius: 14px;
+  background-color: rgba(255,255,255,0.9);
+  height: 28px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.vanilla-type-switch::after {
+  position: absolute;
+  content: "";
+  border-radius: 12px;
+  background-color: var(--clr-opaque);
+  width: 24px;
+  height: 24px;
+  top: 2px;
+  left: 2px;
+  transition: margin-left ease-in-out 200ms, background-color linear 100ms;
+}
+
+.vanilla-type-switch:hover::after {
+  background-color: var(--clr-bright-opaque);
+}
+
+.vanilla-type-switch:not(:checked)::after {
+  margin-left: 0px;
+}
+
+.vanilla-type-switch:checked::after {
+  margin-left: 32px;
+}
+
+.vanilla-type-switch-cont > div {
+  width: 120px;
+}
+
+.lbl-release {
+  text-align: right;
+  padding-right: 12px;
+}
+
+.lbl-snapshot {
+  text-align: left;
+  padding-left: 12px;
 }

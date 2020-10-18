@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 export default function UpdateDialog() {
 
     const [isVisible, setIsVisible] = useState(false);
-    const [downloadProgress, setDownloadProgress] = useState(0);
     const [updateVersion, setUpdateVersion] = useState("");
     const [downloading, setDownloading] = useState(false);
 
@@ -15,7 +14,7 @@ export default function UpdateDialog() {
             setIsVisible(true);
         });
 
-    }, [setIsVisible, setUpdateVersion, setDownloadProgress])
+    }, [setIsVisible, setUpdateVersion])
 
     const handleUpdateBtn = () => {
         ipcRenderer.send("fwlDownloadAndInstallUpdate");
